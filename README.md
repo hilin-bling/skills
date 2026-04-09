@@ -1,173 +1,174 @@
-# Modern Skills Collection | 现代文档生成工具集
+# Skills Repository | 高质量 Skill 收录仓库
 
-A professional document generation toolkit with 18 modern design styles, including PDF, PPT, Word, and Excel creation capabilities.
+A curated collection of high-quality skills for AI agents. This repository serves as a growing library of professionally crafted skills, each meeting strict quality standards for documentation, examples, and usability.
 
-一套专业的文档生成工具集，包含 18 种现代化设计风格，支持 PDF、PPT、Word 和 Excel 文档生成。
-
----
-
-## Overview | 概述
-
-This collection includes four powerful document generation tools, all sharing a unified design system with 18 professional styles inspired by Dribbble and Behance top-tier design works.
-
-本工具集包含四个强大的文档生成工具，共享统一的设计系统，提供 18 种专业风格，设计灵感源自 Dribbble 和 Behance 顶级设计作品。
-
-| Skill | Description | 输出格式 |
-|-------|-------------|----------|
-| **modern-pdf** | Generate stunning PDF documents with gradients, glassmorphism, and modern layouts | PDF |
-| **modern-ppt** | Create PowerPoint presentations with content-aware animations and modern asymmetric layouts | PPTX |
-| **modern-word** | Build professional Word documents with 7-level typography hierarchy | DOCX |
-| **modern-excel** | Design modern Excel spreadsheets with conditional formatting and embedded charts | XLSX |
+一个精心策划的 AI 智能体技能收录仓库。本仓库是一个不断增长的优质技能库，每个收录的技能都符合严格的质量标准，包括完善的文档、示例和可用性。
 
 ---
 
-## 18 Professional Styles | 18 种专业风格
+## Vision | 愿景
 
-All skills share the same design system with 18 carefully crafted styles:
+This repository collects **high-quality skills** that extend AI agent capabilities across multiple domains. Each skill is:
 
-所有技能共享同一设计系统，包含 18 种精心设计的风格：
+本仓库收录**高质量技能**，扩展 AI 智能体在多个领域的能力。每个技能都经过精心设计和测试：
 
-| Style | Characteristics | Use Cases |
-|-------|-----------------|-----------|
-| **Aurora 极光** | Northern lights inspired, dreamy gradient colors | Creative showcases, design proposals |
-| **Cyberpunk 赛博朋克** | Neon effects, dark tech aesthetic | Gaming releases, tech events |
-| **Glassmorphism 玻璃态** | Modern glass-morphism design, translucent feel | Tech companies, modern brands |
-| **Monochrome 单色大师** | Pure monochrome design, minimal elegance | Art portfolios, high-end brands |
-| **Gradient Flow 渐变流** | Dynamic gradient backgrounds, fluid motion | Brand showcases, product releases |
-| **Pastel 柔和梦境** | Soft macaron tones, warm romantic | Lifestyle brands, wedding planning |
-| **Academic 学术蓝** | Professional blue, rigorous academic | Thesis defenses, research reports |
-| **Business Elite 商务精英** | Professional corporate, efficient clean | Annual reports, quarterly summaries |
-| **Tech Future 科技未来** | Cutting-edge innovation, futuristic | AI products, technical docs |
-| **Minimalist 极简主义** | Simple pure, whitespace-focused | Design portfolios, minimal reports |
-| **Natural Green 自然绿意** | Fresh nature, eco-friendly | Environmental data, health reports |
-| **Retro 复古怀旧** | Warm nostalgic, vintage classic | Historical data, anniversary reports |
-| **Vibrant 活力橙黄** | Energetic orange-yellow, dynamic | Fitness tracking, youth analytics |
-| **Healthcare 医疗健康** | Professional medical, trustworthy | Medical reports, health dashboards |
-| **Finance 金融财经** | Steady professional, financial | Financial statements, investment analysis |
-| **Chinese Style 中国风** | Traditional elegant, Chinese aesthetics | Traditional culture, Chinese brands |
-| **Creative 创意艺术** | Artistic creative, expressive | Creative industry, art analytics |
-| **Corporate 企业标准** | Standard corporate, reliable | Standard reports, enterprise data |
+- ✅ **Well-documented** - Complete usage guide and examples
+- ✅ **Production-ready** - Tested and validated output
+- ✅ **Standardized** - Consistent naming and API design
+- ✅ **Extensible** - Designed for future enhancements
 
 ---
 
-## Features | 特性
+## Table of Contents | 目录
 
-### Shared Design System | 共享设计系统
-
-- **Typography System**: 7-level hierarchy (Display 96pt → Small 12pt)
-- **字体排版系统**: 7 级字号体系 (展示级 96pt → 小字 12pt)
-- **Font Pairing**: 7 professional font combinations
-- **字体配对**: 7 种专业字体组合
-- **Color Intelligence**: Smart color matching for each style
-- **智能配色**: 每种风格的智能配色系统
-- **Layout Engine**: Modern asymmetric layouts with proper whitespace
-- **布局引擎**: 现代化非对称布局，合理留白
-
-### Modern PDF Features | PDF 功能
-
-- Vector gradient backgrounds (linear, radial, mesh)
-- 矢量渐变背景 (线性、径向、Mesh 渐变)
-- Glassmorphism effects with blur
-- 玻璃态模糊效果
-- Multi-column layouts
-- 多栏布局
-- Data visualization components
-- 数据可视化组件
-- 40+ page types for various scenarios
-- 40+ 种页面类型适配各种场景
-
-### Modern PPT Features | PPT 功能
-
-- Content-aware animation engine
-- 内容感知动画引擎
-- 50+ page types with unique layouts
-- 50+ 种页面类型独特布局
-- Automatic transition effects
-- 自动切换动画效果
-- Element-level enter animations
-- 元素级进入动画
-- 100+ design templates
-- 100+ 设计模板
-
-### Modern Word Features | Word 功能
-
-- Automatic table of contents generation
-- 自动生成目录
-- Smart style detection
-- 智能风格检测
-- Table styles with modern formatting
-- 现代化表格样式
-- Image and text layouts
-- 图文混排布局
-- Header/footer support
-- 页眉页脚支持
-
-### Modern Excel Features | Excel 功能
-
-- Conditional formatting (color scales, data bars, icon sets)
-- 条件格式 (颜色刻度、数据条、图标集)
-- Embedded charts (column, line, pie, bar, area)
-- 嵌入式图表 (柱状图、折线图、饼图、条形图、面积图)
-- Formula templates library
-- 公式模板库
-- Data validation rules
-- 数据验证规则
-- Auto-fit columns
-- 自动列宽调整
+- [Current Skills](#current-skills--当前技能)
+- [Skill Categories](#skill-categories--技能分类)
+- [Quality Standards](#quality-standards--质量标准)
+- [Adding New Skills](#adding-new-skills--添加新技能)
+- [File Structure](#file-structure--文件结构)
 
 ---
 
-## Quick Start | 快速开始
+## Current Skills | 当前技能
 
-### Install Dependencies | 安装依赖
+### Batch 1: Modern Document Generation (v1.0.0)
 
-```bash
-# For modern-pdf
-cd modern-pdf
-npm install pdfkit
+| Skill | Category | Description | Output |
+|-------|----------|-------------|--------|
+| **[modern-pdf](./modern-pdf/)** | 文档生成 | Generate stunning PDF documents with 18 modern styles | PDF |
+| **[modern-ppt](./modern-ppt/)** | 文档生成 | Create PowerPoint presentations with content-aware animations | PPTX |
+| **[modern-word](./modern-word/)** | 文档生成 | Build professional Word documents with typography hierarchy | DOCX |
+| **[modern-excel](./modern-excel/)** | 文档生成 | Design Excel spreadsheets with conditional formatting | XLSX |
 
-# For modern-ppt
-cd modern-ppt
-npm install officegen
+**Features**:
+- 18 professional styles (Aurora, Cyberpunk, Glassmorphism, etc.)
+- Unified design system across all tools
+- 7-level typography hierarchy
+- Modern asymmetric layouts
 
-# For modern-word
-cd modern-word
-npm install docx
+---
 
-# For modern-excel
-cd modern-excel
-pip install openpyxl xlsxwriter
-# or / 或
-npm install exceljs
+## Skill Categories | 技能分类
+
+### By Domain | 按功能领域
+
+| Category | Description | Example Skills |
+|----------|-------------|----------------|
+| **文档生成** | Professional document creation | modern-pdf, modern-ppt, modern-word, modern-excel |
+| **开发工具** | Developer productivity tools | _Coming soon_ |
+| **创意写作** | Creative writing & storytelling | _Coming soon_ |
+| **数据分析** | Data analysis & visualization | _Coming soon_ |
+| **营销运营** | Marketing & operations | _Coming soon_ |
+| **学习研究** | Learning & research assistance | _Coming soon_ |
+
+### By Scenario | 按使用场景
+
+| Scenario | Skills |
+|----------|--------|
+| **工作报告** | modern-ppt, modern-excel, modern-word |
+| **学术答辩** | modern-pdf, modern-ppt |
+| **创意展示** | modern-pdf, modern-ppt |
+| **数据分析** | modern-excel |
+
+### By Type | 按技能类型
+
+| Type | Description | Example |
+|------|-------------|---------|
+| **工具型** | Execute specific tasks | modern-pdf (generate PDF) |
+| **策略型** | Provide strategic guidance | _Coming soon_ |
+| **创作型** | Creative content generation | modern-ppt, modern-word |
+| **分析型** | Data analysis & insights | modern-excel |
+
+---
+
+## Quality Standards | 质量标准
+
+Every skill in this repository must meet the following standards:
+
+### Documentation | 文档要求
+
+- ✅ **SKILL.md** - Complete skill documentation with usage examples
+- ✅ **README section** - Listed in main README with description
+- ✅ **API reference** - Clear function/method signatures
+- ✅ **Style guide** - Consistent naming and code style
+
+### Examples | 示例要求
+
+- ✅ **Code examples** - Multiple usage examples in SKILL.md
+- ✅ **Output samples** - Generated output files or screenshots
+- ✅ **Edge cases** - Examples covering common edge cases
+
+### Naming Convention | 命名规范
+
+```
+Skill naming follows kebab-case pattern:
+- modern-pdf      ✅
+- modern_ppt      ❌ (snake_case)
+- ModernPPT       ❌ (PascalCase)
+- modernPPT       ❌ (camelCase)
+
+Directory structure:
+skills/
+├── skill-name/
+│   ├── SKILL.md       # Required
+│   ├── README.md      # Optional (for complex skills)
+│   ├── INSTALL.md     # Optional (if special setup needed)
+│   ├── scripts/       # Implementation files
+│   ├── assets/        # Resources (fonts, templates, etc.)
+│   └── output/        # Generated examples (optional)
 ```
 
-### Basic Usage | 基本用法
+### API Design | API 设计规范
 
 ```javascript
-// PDF Example
-const { ModernPDFUltimate } = require('./modern-pdf/scripts/modern-pdf-ultimate');
-const gen = new ModernPDFUltimate('academic');
-gen.cover('Report Title', 'Author Name', 'Organization');
-gen.save('report.pdf');
-
-// PPT Example
-const { ModernPPTUltimate } = require('./modern-ppt/scripts/modern-ppt-ultimate');
-const gen = new ModernPPTUltimate('tech');
-await gen.cover('Product Launch', 'Presenter', 'Date');
-await gen.save('presentation.pptx');
-
-// Word Example
-const { ModernWordUltimate } = require('./modern-word/scripts/modern-word-ultimate');
-const doc = new ModernWordUltimate('business');
-doc.cover('Document Title', 'Author', 'Date');
-doc.save('document.docx');
-
-// Excel Example (Python)
-from modern_excel_ultimate import ModernExcelUltimate
-gen = ModernExcelUltimate('finance')
-gen.data_table('Financial Data', ['Q1', 'Q2', 'Q3', 'Q4'], [...])
-gen.save('report.xlsx')
+// Consistent pattern across all skills
+const { SkillName } = require('./scripts/skill-name-main');
+const generator = new SkillName('style-name');
+generator.method('content');
+generator.save('output.ext');
 ```
+
+---
+
+## Adding New Skills | 添加新技能
+
+### Submission Process | 提交流程
+
+1. **Create skill directory**
+   ```bash
+   mkdir -p skills/your-skill-name
+   ```
+
+2. **Add required files**
+   - `SKILL.md` - Main documentation (required)
+   - `scripts/` - Implementation code
+   - `output/` - Example outputs (recommended)
+
+3. **Update README.md**
+   - Add skill to "Current Skills" table
+   - Categorize appropriately
+
+4. **Test thoroughly**
+   - Verify all examples work
+   - Include output samples
+
+5. **Commit with conventional message**
+   ```bash
+   git add skills/your-skill-name
+   git commit -m "feat: add your-skill-name v1.0.0"
+   ```
+
+### PR Checklist | 提交检查清单
+
+Before submitting a new skill, ensure:
+
+- [ ] SKILL.md follows the standard format
+- [ ] Code examples are tested and working
+- [ ] Output samples are included
+- [ ] Naming follows kebab-case convention
+- [ ] API design is consistent with existing skills
+- [ ] Added to README.md "Current Skills" table
+- [ ] Categorized in appropriate sections
 
 ---
 
@@ -175,21 +176,47 @@ gen.save('report.xlsx')
 
 ```
 skills/
-├── README.md                 # This file / 本文件
-├── modern-pdf/
-│   ├── SKILL.md              # Skill documentation / 技能文档
-│   ├── INSTALL.md            # Installation guide / 安装指南
-│   └── scripts/              # Generation scripts / 生成脚本
-├── modern-ppt/
+├── README.md                    # This file - main documentation
+├── .gitignore                   # Git ignore rules
+│
+├── modern-pdf/                  # Skill: PDF generation
+│   ├── SKILL.md                 # Skill documentation
+│   ├── INSTALL.md               # Installation guide
+│   ├── scripts/                 # Implementation
+│   │   ├── style-library.js     # Style definitions
+│   │   ├── modern-pdf-ultimate.js
+│   │   └── ...
+│   └── output/                  # Generated examples
+│       └── test/
+│           └── *.pdf
+│
+├── modern-ppt/                  # Skill: PPT generation
 │   ├── SKILL.md
-│   └── scripts/
-├── modern-word/
+│   ├── scripts/
+│   └── output/
+│
+├── modern-word/                 # Skill: Word generation
 │   ├── SKILL.md
-│   └── scripts/
-└── modern-excel/
-    ├── SKILL.md
-    └── scripts/
+│   ├── scripts/
+│   └── output/
+│
+├── modern-excel/                # Skill: Excel generation
+│   ├── SKILL.md
+│   ├── scripts/
+│   └── output/
+│
+└── [future-skill-1]/            # Future skills...
+└── [future-skill-2]/
+└── ...
 ```
+
+---
+
+## Version History | 版本历史
+
+| Version | Date | Skills Added | Notes |
+|---------|------|--------------|-------|
+| 1.0.0 | 2026-04-09 | modern-pdf, modern-ppt, modern-word, modern-excel | Initial release - Modern document generation suite |
 
 ---
 
@@ -199,14 +226,30 @@ MIT License
 
 ---
 
-## Credits | 致谢
+## Credits | 来源
 
-These skills are part of the Claude Studio project, designed to provide professional document generation capabilities with modern design aesthetics.
+This skills repository is part of the **Claude Studio** project.
 
-这些技能是 Claude Studio 项目的一部分，旨在提供具有现代设计美学的专业文档生成能力。
+本技能仓库是 **Claude Studio** 项目的一部分。
+
+- **Source**: [Claude Studio](https://github.com/hailinbling/claude-studio)
+- **Author**: Hailin
+- **Created**: 2026-04-09
 
 ---
 
-**Version | 版本**: 1.0.0
-**Last Updated | 最后更新**: 2026-04-09
-**Source | 来源**: Claude Studio
+## Contact | 联系
+
+For questions or contributions, please open an issue on GitHub.
+
+如有问题或贡献，请在 GitHub 上提交 issue。
+
+---
+
+<div align="center">
+
+**Built with ❤️ for the AI agent community**
+
+**为 AI 智能体社区构建**
+
+</div>
