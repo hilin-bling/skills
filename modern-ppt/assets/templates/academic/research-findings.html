@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+/* Academic Style Template - Clean, structured, professional */
+html { background: #FFFFFF; }
+body {
+  width: 720pt; height: 405pt; margin: 0; padding: 0;
+  display: flex; flex-direction: column;
+  background: #FFFFFF;
+  font-family: Georgia, serif;
+}
+.header {
+  background: #1A365D;
+  padding: 24pt 40pt;
+}
+.header h1 {
+  color: #FFFFFF;
+  font-size: 28pt;
+  margin: 0;
+  font-weight: normal;
+}
+.content {
+  flex: 1;
+  padding: 32pt 40pt;
+  display: flex;
+  flex-direction: column;
+}
+.section-title {
+  color: #1A365D;
+  font-size: 22pt;
+  margin: 0 0 20pt 0;
+  font-weight: bold;
+  border-bottom: 2pt solid #3182CE;
+  padding-bottom: 8pt;
+}
+.body-text {
+  color: #2D3748;
+  font-size: 14pt;
+  margin: 0 0 16pt 0;
+  line-height: 1.6;
+}
+.two-column {
+  display: flex;
+  gap: 32pt;
+  flex: 1;
+}
+.column {
+  flex: 1;
+}
+.citation {
+  color: #718096;
+  font-size: 10pt;
+  font-style: italic;
+  margin-top: 16pt;
+  padding-top: 8pt;
+  border-top: 1pt solid #E2E8F0;
+}
+.footer {
+  padding: 12pt 40pt;
+  background: #F7FAFC;
+  display: flex;
+  justify-content: space-between;
+}
+.footer p {
+  color: #718096;
+  font-size: 10pt;
+  margin: 0;
+}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>SECTION_TITLE</h1>
+</div>
+<div class="content">
+  <h2 class="section-title">SUBSECTION_TITLE</h2>
+  <div class="two-column">
+    <div class="column">
+      <p class="body-text">LEFT_COLUMN_CONTENT</p>
+      <p class="citation">CITATION_TEXT</p>
+    </div>
+    <div class="column">
+      <p class="body-text">RIGHT_COLUMN_CONTENT</p>
+    </div>
+  </div>
+</div>
+<div class="footer">
+  <p>AUTHOR_NAME</p>
+  <p>INSTITUTION</p>
+</div>
+</body>
+</html>

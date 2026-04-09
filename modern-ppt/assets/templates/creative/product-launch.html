@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+/* Creative Style Template - Bold, impactful, brand-focused */
+html { background: #FAFAFA; }
+body {
+  width: 720pt; height: 405pt; margin: 0; padding: 0;
+  display: flex;
+  background: linear-gradient(135deg, #7C3AED 0%, #EC4899 50%, #F59E0B 100%);
+  font-family: Arial, sans-serif;
+  overflow: hidden;
+}
+.content-wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 40pt;
+  box-sizing: border-box;
+}
+.main-title {
+  color: #FFFFFF;
+  font-size: 56pt;
+  font-weight: bold;
+  margin: 0 0 16pt 0;
+  text-align: center;
+  text-shadow: 0 4pt 20pt rgba(0,0,0,0.3);
+}
+.subtitle {
+  color: rgba(255,255,255,0.9);
+  font-size: 24pt;
+  margin: 0 0 40pt 0;
+  text-align: center;
+  font-weight: normal;
+}
+.feature-row {
+  display: flex;
+  gap: 32pt;
+  justify-content: center;
+}
+.feature-item {
+  text-align: center;
+}
+.feature-icon {
+  width: 64pt;
+  height: 64pt;
+  background: rgba(255,255,255,0.2);
+  border-radius: 50%;
+  margin: 0 auto 12pt;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28pt;
+}
+.feature-item h3 {
+  color: #FFFFFF;
+  font-size: 16pt;
+  margin: 0 0 6pt 0;
+  font-weight: bold;
+}
+.feature-item p {
+  color: rgba(255,255,255,0.8);
+  font-size: 12pt;
+  margin: 0;
+}
+.cta-button {
+  margin-top: 40pt;
+  background: #FFFFFF;
+  color: #7C3AED;
+  padding: 14pt 32pt;
+  border-radius: 30pt;
+  font-size: 16pt;
+  font-weight: bold;
+  box-shadow: 0 4pt 20pt rgba(0,0,0,0.2);
+}
+.decoration {
+  position: absolute;
+  width: 200pt;
+  height: 200pt;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.1);
+}
+.decoration.top-left {
+  top: -100pt;
+  left: -100pt;
+}
+.decoration.bottom-right {
+  bottom: -100pt;
+  right: -100pt;
+}
+</style>
+</head>
+<body>
+<div class="decoration top-left"></div>
+<div class="decoration bottom-right"></div>
+<div class="content-wrapper">
+  <h1 class="main-title">PRODUCT_NAME</h1>
+  <p class="subtitle">PRODUCT_TAGLINE</p>
+  <div class="feature-row">
+    <div class="feature-item">
+      <div class="feature-icon">ICON_1</div>
+      <h3>FEATURE_1_TITLE</h3>
+      <p>FEATURE_1_DESC</p>
+    </div>
+    <div class="feature-item">
+      <div class="feature-icon">ICON_2</div>
+      <h3>FEATURE_2_TITLE</h3>
+      <p>FEATURE_2_DESC</p>
+    </div>
+    <div class="feature-item">
+      <div class="feature-icon">ICON_3</div>
+      <h3>FEATURE_3_TITLE</h3>
+      <p>FEATURE_3_DESC</p>
+    </div>
+  </div>
+  <div class="cta-button">CALL_TO_ACTION</div>
+</div>
+</body>
+</html>

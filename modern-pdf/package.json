@@ -1,0 +1,33 @@
+{
+  "name": "modern-pdf-ultimate",
+  "version": "7.0.0",
+  "description": "Modern PDF Creator Ultimate - Generate stunning PDF documents with 18 professional styles",
+  "main": "scripts/modern-pdf-ultimate.js",
+  "scripts": {
+    "generate": "node scripts/generate-all-templates.js",
+    "test": "node scripts/test-generator.js"
+  },
+  "keywords": [
+    "pdf",
+    "document",
+    "generator",
+    "modern",
+    "styling",
+    "gradient",
+    "glassmorphism",
+    "professional",
+    "design"
+  ],
+  "author": "Modern PDF Creator",
+  "license": "MIT",
+  "dependencies": {
+    "pdfkit": "^0.13.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/example/modern-pdf-ultimate"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}

@@ -1,0 +1,34 @@
+[
+  {
+    "style": "corporateStandard",
+    "file": "D:\\Software\\Devlop\\AI\\.claude\\skills\\modern-excel\\output\\test-v8\\test-corporateStandard-comprehensive.xlsx"
+  },
+  {
+    "style": "academic",
+    "file": "D:\\Software\\Devlop\\AI\\.claude\\skills\\modern-excel\\output\\test-v8\\test-academic-comprehensive.xlsx"
+  },
+  {
+    "style": "finance",
+    "file": "D:\\Software\\Devlop\\AI\\.claude\\skills\\modern-excel\\output\\test-v8\\test-finance-comprehensive.xlsx"
+  },
+  {
+    "style": "tech",
+    "file": "D:\\Software\\Devlop\\AI\\.claude\\skills\\modern-excel\\output\\test-v8\\test-tech-comprehensive.xlsx"
+  },
+  {
+    "style": "minimal",
+    "file": "D:\\Software\\Devlop\\AI\\.claude\\skills\\modern-excel\\output\\test-v8\\test-minimal-comprehensive.xlsx"
+  },
+  {
+    "style": "nature",
+    "file": "D:\\Software\\Devlop\\AI\\.claude\\skills\\modern-excel\\output\\test-v8\\test-nature-comprehensive.xlsx"
+  },
+  {
+    "style": "aurora",
+    "file": "D:\\Software\\Devlop\\AI\\.claude\\skills\\modern-excel\\output\\test-v8\\test-aurora-comprehensive.xlsx"
+  },
+  {
+    "style": "glassmorphism",
+    "file": "D:\\Software\\Devlop\\AI\\.claude\\skills\\modern-excel\\output\\test-v8\\test-glassmorphism-comprehensive.xlsx"
+  }
+]

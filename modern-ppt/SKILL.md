@@ -1,80 +1,11 @@
 ---
 name: modern-ppt
-description: "Create stunning PowerPoint presentations with 18 professional styles (including Aurora, Cyberpunk, Glassmorphism), each with unique content, layouts, and animations. Features include: content-aware animation engine, modern asymmetric layouts, typography system with 7-level hierarchy, 100+ design templates, advanced gradient generator, glassmorphism effects, and 50+ page types. v8.0 Ultimate Edition - 对标 Dribbble/Behance 顶级设计作品。"
+description: "Create stunning PowerPoint presentations with 12 professional styles, each with unique content, layouts, and animations. Supports slide transitions (fade, push, wipe, dissolve, etc.) and element animations (fly-in, zoom, fade, bounce, etc.). Each style has matching animations: Deep Space uses fade transitions with zoom effects, Academic uses wipe transitions, Cute uses bounce animations, Tech uses fly-in effects, and more. 40+ page types available. v6.0 adds content-aware animation engine and modern asymmetric layouts."
 ---
 
-# Modern PPT Creator Ultimate v8.0
+# Modern PPT Creator Ultimate
 
-生成高质量、现代化的PowerPoint演示文稿，支持18种精心设计的风格，每种风格都有独特的内容、布局和动画效果。**全网最强 PPTX 生成技能 - 对标 Dribbble/Behance 顶级设计作品。**
-
-## v8.0 终极升级 - 统一设计系统
-
-### 新增特性
-
-| 特性 | 描述 |
-|------|------|
-| **统一设计系统** | 与 modern-pdf、modern-word、modern-excel 共享设计规范 |
-| **18 种风格统一** | 所有 modern-* 技能使用相同的 18 种专业风格 |
-| **智能风格推荐** | 根据内容自动推荐最适合的风格 |
-| **API 统一** | 与其他 modern-* 技能保持一致的 API 设计 |
-
-## v7.0 终极升级 - 美学巅峰
-
-### 新增 6 种潮流风格
-
-| 风格 | 特点 | 适用场景 |
-|------|------|---------|
-| **极光 Aurora** | 北欧极光灵感，梦幻渐变色彩 | 创意展示、设计提案 |
-| **赛博朋克 Cyberpunk** | 霓虹灯效果，暗色科技感 | 游戏发布、科技活动 |
-| **柔和梦境 Pastel** | 柔和马卡龙色调，温馨浪漫 | 女性品牌、婚礼策划 |
-| **渐变流 Gradient** | 动态渐变背景，流动感 | 品牌展示、产品发布 |
-| **玻璃态 Glass** | 现代玻璃拟态设计，通透质感 | 科技公司、现代品牌 |
-| **单色大师 Monochrome** | 纯粹单色设计，极简高雅 | 艺术展示、高端品牌 |
-
-### 全新模块系统
-
-```
-scripts/
-├── engines/
-│   ├── color-intelligence.js    # 智能配色系统
-│   └── layout-engine-v2.js      # 高级布局引擎
-├── components/
-│   ├── typography-system.js     # 字体排版系统
-│   ├── micro-animations.js      # 微交互动画库
-│   └── data-viz.js              # 数据可视化组件
-├── utils/
-│   ├── gradient-generator.js    # 渐变生成器
-│   └── glassmorphism.js         # 玻璃态效果
-├── templates/
-│   └── design-templates.js      # 100+ 设计模板
-```
-
-### 字体排版系统
-
-**7级字号体系**:
-- Display (96pt) - 展示级
-- Hero (72pt) - 封面主标题
-- Title (48pt) - 页面标题
-- Heading (36pt) - 章节标题
-- Body (18pt) - 正文
-- Caption (14pt) - 说明文字
-- Small (12pt) - 小字
-
-**7种字体配对**:
-- Classic Professional - 衬线 + 无衬线
-- Modern Editorial - 展示 + 正文
-- Minimal Clean - 纯无衬线
-- Chinese English Mixed - 中英混排优化
-- 等等...
-
-### 设计模板库
-
-- **极简风格**: 产品发布、投资路演、作品集
-- **创意风格**: 品牌发布会、年度总结
-- **商务风格**: 季度报告、项目提案
-- **科技风格**: 产品发布、AI产品介绍
-- **行业模板**: 金融、医疗、教育
-- **场景模板**: 培训、工作坊
+生成高质量、现代化的PowerPoint演示文稿，支持12种精心设计的风格，每种风格都有独特的内容、布局和动画效果。
 
 ## v6.0 现代美学升级
 
@@ -350,19 +281,7 @@ modern-ppt/
 
 ## 版本历史
 
-### v8.0 (最新) - 统一设计系统
-- 统一设计系统 - 与 modern-pdf、modern-word、modern-excel 共享设计规范
-- 18 种风格统一 - 所有 modern-* 技能使用相同的专业风格
-- 智能风格推荐 - 根据内容自动推荐最适合的风格
-- API 统一 - 与其他 modern-* 技能保持一致的 API 设计
-
-### v7.0 - 美学巅峰
-- 新增 6 种潮流风格（极光、赛博朋克、柔和梦境、渐变流、玻璃态、单色大师）
-- 全新模块系统（engines、components、utils、templates）
-- 字体排版系统（7级字号、7种字体配对）
-- 设计模板库（100+ 模板）
-
-### v6.0 - 现代美学升级
+### v6.0 (最新) - 现代美学升级
 - 内容感知动画引擎 - 根据内容类型自动选择动画
 - 现代布局系统 - 非对称布局、超大字体、卡片化设计
 - 智能动画时长 - 根据内容复杂度动态调整

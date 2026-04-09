@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+/* Technical Style Template - Dark theme, code-focused */
+html { background: #0F172A; }
+body {
+  width: 720pt; height: 405pt; margin: 0; padding: 0;
+  display: flex; flex-direction: column;
+  background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+  font-family: Arial, sans-serif;
+}
+.top-bar {
+  height: 4pt;
+  background: linear-gradient(90deg, #22D3EE, #A855F7);
+}
+.header {
+  padding: 24pt 40pt 16pt;
+}
+.header h1 {
+  color: #FFFFFF;
+  font-size: 32pt;
+  margin: 0;
+  font-weight: bold;
+}
+.header .subtitle {
+  color: #94A3B8;
+  font-size: 14pt;
+  margin: 8pt 0 0 0;
+}
+.content {
+  flex: 1;
+  padding: 0 40pt 24pt;
+  display: flex;
+  gap: 24pt;
+}
+.main-content {
+  flex: 2;
+}
+.sidebar {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16pt;
+}
+.code-block {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 6pt;
+  padding: 16pt;
+  border-left: 3pt solid #22D3EE;
+}
+.code-block h3 {
+  color: #22D3EE;
+  font-size: 12pt;
+  margin: 0 0 8pt 0;
+  font-family: Courier New, monospace;
+}
+.code-block pre {
+  color: #E2E8F0;
+  font-size: 11pt;
+  margin: 0;
+  font-family: Courier New, monospace;
+  line-height: 1.5;
+}
+.feature-card {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8pt;
+  padding: 14pt;
+}
+.feature-card h4 {
+  color: #A855F7;
+  font-size: 12pt;
+  margin: 0 0 6pt 0;
+}
+.feature-card p {
+  color: #94A3B8;
+  font-size: 11pt;
+  margin: 0;
+  line-height: 1.4;
+}
+.highlight {
+  color: #22D3EE;
+}
+.highlight-pink {
+  color: #A855F7;
+}
+.footer {
+  padding: 12pt 40pt;
+  display: flex;
+  justify-content: space-between;
+  border-top: 1pt solid rgba(255,255,255,0.1);
+}
+.footer p {
+  color: #64748B;
+  font-size: 10pt;
+  margin: 0;
+}
+</style>
+</head>
+<body>
+<div class="top-bar"></div>
+<div class="header">
+  <h1>TECHNICAL_TITLE</h1>
+  <p class="subtitle">TECHNICAL_SUBTITLE</p>
+</div>
+<div class="content">
+  <div class="main-content">
+    <div class="code-block">
+      <h3>// CODE_EXAMPLE</h3>
+      <pre>CODE_CONTENT_HERE</pre>
+    </div>
+  </div>
+  <div class="sidebar">
+    <div class="feature-card">
+      <h4>FEATURE_1_TITLE</h4>
+      <p>FEATURE_1_DESC</p>
+    </div>
+    <div class="feature-card">
+      <h4>FEATURE_2_TITLE</h4>
+      <p>FEATURE_2_DESC</p>
+    </div>
+    <div class="feature-card">
+      <h4>FEATURE_3_TITLE</h4>
+      <p>FEATURE_3_DESC</p>
+    </div>
+  </div>
+</div>
+<div class="footer">
+  <p>PROJECT_NAME</p>
+  <p>VERSION</p>
+</div>
+</body>
+</html>

@@ -1,0 +1,1 @@
+{"name": "modern-word", "version": "8.0.0", "description": "Modern Word Generator", "main": "scripts/modern-word-ultimate.js", "scripts": {"test": "node scripts/test-generation.js"}, "dependencies": {"docx": "^8.5.0"}}

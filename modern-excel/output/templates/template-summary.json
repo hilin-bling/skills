@@ -1,0 +1,37 @@
+[
+  {
+    "style": "finance",
+    "styleName": "Finance",
+    "styleNameCN": "金融财经",
+    "file": "modern-excel-finance.xlsx",
+    "path": "..\\output\\templates\\modern-excel-finance.xlsx"
+  },
+  {
+    "style": "academic",
+    "styleName": "Academic",
+    "styleNameCN": "学术蓝",
+    "file": "modern-excel-academic.xlsx",
+    "path": "..\\output\\templates\\modern-excel-academic.xlsx"
+  },
+  {
+    "style": "tech",
+    "styleName": "Tech Future",
+    "styleNameCN": "科技未来",
+    "file": "modern-excel-tech.xlsx",
+    "path": "..\\output\\templates\\modern-excel-tech.xlsx"
+  },
+  {
+    "style": "aurora",
+    "styleName": "Aurora",
+    "styleNameCN": "极光",
+    "file": "modern-excel-aurora.xlsx",
+    "path": "..\\output\\templates\\modern-excel-aurora.xlsx"
+  },
+  {
+    "style": "cyberpunk",
+    "styleName": "Cyberpunk",
+    "styleNameCN": "赛博朋克",
+    "file": "modern-excel-cyberpunk.xlsx",
+    "path": "..\\output\\templates\\modern-excel-cyberpunk.xlsx"
+  }
+]
