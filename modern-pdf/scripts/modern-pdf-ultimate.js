@@ -1396,6 +1396,1506 @@ class ModernPDFUltimate {
     }
 
     // ==========================================
+    // API 概览页
+    // ==========================================
+    apiOverview(title, endpoints) {
+        this.addPage();
+        this.heading(title, 1);
+
+        const primaryColor = this._getStyleColor('primary');
+        const accentColor = this._getStyleColor('accent');
+        const textColor = this._getStyleColor('text');
+        const textMutedColor = this._getStyleColor('textMuted');
+        const cardBgColor = this._getStyleColor('cardBg');
+        const cardBorderColor = this._getStyleColor('cardBorder');
+
+        const contentWidth = this.doc.page.width - this.options.page.margin.left - this.options.page.margin.right;
+        const startX = this.options.page.margin.left;
+        const startY = this.currentY + this.options.spacing.lg;
+        const rowHeight = 32;
+
+        // 表头
+        this.doc.save();
+        this.doc.rect(startX, startY, contentWidth, 30)
+            .fill(primaryColor);
+        this.doc.restore();
+
+        // 表头文字
+        const headers = ['Method', 'Path', 'Description'];
+        const colWidths = [60, 150, contentWidth - 210];
+        headers.forEach((header, index) => {
+            this.doc.fontSize(this.options.typography.caption)
+                .fillColor('#FFFFFF')
+                .font(this.fonts.bold)
+                .text(header, startX + 12 + index * colWidths[index], startY + 10);
+        });
+
+        // 端点列表
+        endpoints.forEach((endpoint, rowIndex) => {
+            const rowY = startY + 30 + rowIndex * rowHeight;
+            const isEven = rowIndex % 2 === 0;
+
+            // 行背景
+            this.doc.save();
+            this.doc.rect(startX, rowY, contentWidth, rowHeight)
+                .fill(isEven ? cardBgColor : '#FFFFFF');
+            this.doc.restore();
+
+            // Method 标签颜色
+            const methodColors = {
+                'GET': '#22C55E',
+                'POST': '#3B82F6',
+                'PUT': '#F59E0B',
+                'DELETE': '#EF4444',
+                'PATCH': '#8B5CF6'
+            };
+            const methodColor = methodColors[endpoint.method] || primaryColor;
+
+            // Method 标签
+            this.doc.save();
+            this.doc.fillColor(methodColor);
+            this.doc.roundedRect(startX + 8, rowY + 6, 45, 18, 4).fill();
+            this.doc.restore();
+
+            this.doc.fontSize(this.options.typography.small)
+                .fillColor('#FFFFFF')
+                .font(this.fonts.bold)
+                .text(endpoint.method, startX + 18, rowY + 9);
+
+            // Path
+            this.doc.fontSize(this.options.typography.caption)
+                .fillColor(textColor)
+                .font(this.fonts.regular)
+                .text(endpoint.path, startX + 65, rowY + 10);
+
+            // Description
+            this.doc.fontSize(this.options.typography.caption)
+                .fillColor(textMutedColor)
+                .font(this.fonts.regular)
+                .text(endpoint.desc || '', startX + 220, rowY + 10, {
+                    width: contentWidth - 240
+                });
+
+            // 行底边框
+            this._drawDecoLine(startX, rowY + rowHeight, contentWidth, cardBorderColor, 0.5);
+        });
+
+        this.pageCount++;
+        return this;
+    }
+
+    // ==========================================
+    // 代码块展示页
+    // ==========================================
+    codeBlock(title, code, language = 'JavaScript') {
+        this.addPage();
+        this.heading(title, 1);
+
+        const primaryColor = this._getStyleColor('primary');
+        const textColor = this._getStyleColor('text');
+        const textMutedColor = this._getStyleColor('textMuted');
+        const cardBgColor = this._getStyleColor('cardBg');
+        const cardBorderColor = this._getStyleColor('cardBorder');
+
+        const contentWidth = this.doc.page.width - this.options.page.margin.left - this.options.page.margin.right;
+        const startX = this.options.page.margin.left;
+        const startY = this.currentY + this.options.spacing.lg;
+        const lineHeight = 16;
+        const headerHeight = 25;
+        const padding = 15;
+
+        // 代码块背景
+        const codeLines = code.split('\n');
+        const codeHeight = codeLines.length * lineHeight + headerHeight + padding * 2;
+
+        this._drawRoundedRect(startX, startY, contentWidth, codeHeight, 8, cardBgColor, cardBorderColor, 1);
+
+        // 语言标签头部
+        this.doc.save();
+        this.doc.fillColor(primaryColor);
+        this.doc.rect(startX, startY, contentWidth, headerHeight, 8).fill();
+        this.doc.restore();
+
+        // 语言标签文字
+        this.doc.fontSize(this.options.typography.small)
+            .fillColor('#FFFFFF')
+            .font(this.fonts.bold)
+            .text(language, startX + padding, startY + 7);
+
+        // 代码内容
+        const codeStartY = startY + headerHeight + padding;
+        codeLines.forEach((line, index) => {
+            const lineY = codeStartY + index * lineHeight;
+
+            // 行号
+            this.doc.fontSize(this.options.typography.small)
+                .fillColor(textMutedColor)
+                .font(this.fonts.regular)
+                .text(`${index + 1}`, startX + padding, lineY);
+
+            // 代码行（判断是否是注释）
+            const isComment = line.trim().startsWith('//') || line.trim().startsWith('#');
+            this.doc.fontSize(this.options.typography.small)
+                .fillColor(isComment ? textMutedColor : textColor)
+                .font(this.fonts.regular)
+                .text(line, startX + padding + 25, lineY, {
+                    width: contentWidth - padding * 2 - 25
+                });
+        });
+
+        this.pageCount++;
+        return this;
+    }
+
+    // ==========================================
+    // 应用场景页
+    // ==========================================
+    useCases(title, cases) {
+        this.addPage();
+        this.heading(title, 1);
+
+        const primaryColor = this._getStyleColor('primary');
+        const accentColor = this._getStyleColor('accent');
+        const textColor = this._getStyleColor('text');
+        const textMutedColor = this._getStyleColor('textMuted');
+        const cardBgColor = this._getStyleColor('cardBg');
+        const cardBorderColor = this._getStyleColor('cardBorder');
+
+        const contentWidth = this.doc.page.width - this.options.page.margin.left - this.options.page.margin.right;
+        const startX = this.options.page.margin.left;
+        const startY = this.currentY + this.options.spacing.lg;
+        const caseWidth = contentWidth;
+        const caseHeight = 70;
+        const caseSpacing = 15;
+
+        cases.forEach((caseItem, index) => {
+            const y = startY + index * (caseHeight + caseSpacing);
+
+            // 场景卡片背景
+            this._drawRoundedRect(startX, y, caseWidth, caseHeight, 8, cardBgColor, cardBorderColor, 1);
+
+            // 行业标签
+            this.doc.fontSize(this.options.typography.heading)
+                .fillColor(primaryColor)
+                .font(this.fonts.bold)
+                .text(caseItem.industry, startX + 15, y + 15);
+
+            // 应用场景列表
+            if (caseItem.scenarios && caseItem.scenarios.length > 0) {
+                const scenarioX = startX + 120;
+                caseItem.scenarios.forEach((scenario, sIndex) => {
+                    // 场景圆点
+                    this._drawDecoDot(scenarioX + sIndex * 90, y + 45, 4, accentColor);
+
+                    this.doc.fontSize(this.options.typography.caption)
+                        .fillColor(textColor)
+                        .font(this.fonts.regular)
+                        .text(scenario, scenarioX + 10 + sIndex * 90, y + 40);
+                });
+            }
+        });
+
+        this.pageCount++;
+        return this;
+    }
+
+    // ==========================================
+    // 定价方案页
+    // ==========================================
+    pricing(title, plans) {
+        this.addPage();
+        this.heading(title, 1);
+
+        const primaryColor = this._getStyleColor('primary');
+        const accentColor = this._getStyleColor('accent');
+        const textColor = this._getStyleColor('text');
+        const textMutedColor = this._getStyleColor('textMuted');
+        const cardBgColor = this._getStyleColor('cardBg');
+        const cardBorderColor = this._getStyleColor('cardBorder');
+
+        const contentWidth = this.doc.page.width - this.options.page.margin.left - this.options.page.margin.right;
+        const planWidth = (contentWidth - 20) / plans.length;
+        const startX = this.options.page.margin.left;
+        const startY = this.currentY + this.options.spacing.xl;
+        const planHeight = 180;
+
+        plans.forEach((plan, index) => {
+            const x = startX + index * (planWidth + 10);
+            const isFeatured = index === 1; // 中间方案突出显示
+
+            // 方案卡片背景
+            if (isFeatured) {
+                // 突出方案的边框
+                this.doc.save();
+                this.doc.strokeColor(accentColor)
+                    .lineWidth(3)
+                    .roundedRect(x, startY, planWidth, planHeight, 10)
+                    .stroke();
+                this.doc.restore();
+            }
+            this._drawRoundedRect(x, startY, planWidth, planHeight, 10, cardBgColor, cardBorderColor, 1);
+
+            // 方案名称
+            this.doc.fontSize(this.options.typography.heading)
+                .fillColor(isFeatured ? accentColor : primaryColor)
+                .font(this.fonts.bold)
+                .text(plan.name, x + 15, startY + 20, {
+                    width: planWidth - 30,
+                    align: 'center'
+                });
+
+            // 价格（大字体）
+            this.doc.fontSize(this.options.typography.display)
+                .fillColor(primaryColor)
+                .font(this.fonts.bold)
+                .text(plan.price, x + 15, startY + 45, {
+                    width: planWidth - 30,
+                    align: 'center'
+                });
+
+            // 功能列表
+            if (plan.features && plan.features.length > 0) {
+                const featureY = startY + 90;
+                plan.features.forEach((feature, fIndex) => {
+                    this.doc.fontSize(this.options.typography.caption)
+                        .fillColor(textColor)
+                        .font(this.fonts.regular)
+                        .text(`• ${feature}`, x + 15, featureY + fIndex * 20, {
+                            width: planWidth - 30
+                        });
+                });
+            }
+
+            // 推荐标签
+            if (isFeatured) {
+                this.doc.fontSize(this.options.typography.small)
+                    .fillColor('#FFFFFF')
+                    .font(this.fonts.bold);
+                this.doc.save();
+                this.doc.fillColor(accentColor);
+                this.doc.roundedRect(x + planWidth/2 - 25, startY - 10, 50, 20, 4).fill();
+                this.doc.restore();
+                this.doc.text('推荐', x + planWidth/2 - 20, startY - 5);
+            }
+        });
+
+        this.pageCount++;
+        return this;
+    }
+
+    // ==========================================
+    // 流程图页
+    // ==========================================
+    flowChart(title, steps) {
+        this.addPage();
+        this.heading(title, 1);
+
+        const primaryColor = this._getStyleColor('primary');
+        const accentColor = this._getStyleColor('accent');
+        const textColor = this._getStyleColor('text');
+        const textMutedColor = this._getStyleColor('textMuted');
+        const cardBgColor = this._getStyleColor('cardBg');
+
+        const contentWidth = this.doc.page.width - this.options.page.margin.left - this.options.page.margin.right;
+        const startX = this.options.page.margin.left;
+        const startY = this.currentY + this.options.spacing.xxl;
+        const stepWidth = contentWidth / steps.length;
+        const stepRadius = 25;
+
+        steps.forEach((step, index) => {
+            const centerX = startX + index * stepWidth + stepWidth / 2;
+
+            // 步骤圆圈
+            this.doc.save();
+            this.doc.fillColor(primaryColor);
+            this.doc.circle(centerX, startY, stepRadius).fill();
+            this.doc.restore();
+
+            // 步骤编号
+            this.doc.fontSize(this.options.typography.bodyLarge)
+                .fillColor('#FFFFFF')
+                .font(this.fonts.bold)
+                .text(`${step.id || index + 1}`, centerX - 8, startY - 8);
+
+            // 连接箭头（除最后一个）
+            if (index < steps.length - 1) {
+                const nextCenterX = startX + (index + 1) * stepWidth + stepWidth / 2;
+                this.doc.save();
+                this.doc.strokeColor(primaryColor)
+                    .lineWidth(2)
+                    .moveTo(centerX + stepRadius + 5, startY)
+                    .lineTo(nextCenterX - stepRadius - 5, startY)
+                    .stroke();
+                // 箭头
+                this.doc.fillColor(primaryColor);
+                this.doc.moveTo(nextCenterX - stepRadius - 5, startY - 5)
+                    .lineTo(nextCenterX - stepRadius - 5, startY + 5)
+                    .lineTo(nextCenterX - stepRadius, startY)
+                    .fill();
+                this.doc.restore();
+            }
+
+            // 步骤标题
+            this.doc.fontSize(this.options.typography.body)
+                .fillColor(textColor)
+                .font(this.fonts.bold)
+                .text(step.title, startX + index * stepWidth, startY + 40, {
+                    width: stepWidth,
+                    align: 'center'
+                });
+
+            // 步骤描述
+            if (step.desc) {
+                this.doc.fontSize(this.options.typography.caption)
+                    .fillColor(textMutedColor)
+                    .font(this.fonts.regular)
+                    .text(step.desc, startX + index * stepWidth, startY + 60, {
+                        width: stepWidth,
+                        align: 'center'
+                    });
+            }
+        });
+
+        this.pageCount++;
+        return this;
+    }
+
+    // ==========================================
+    // 组织架构图页
+    // ==========================================
+    orgChart(title, data) {
+        this.addPage();
+        this.heading(title, 1);
+
+        const primaryColor = this._getStyleColor('primary');
+        const accentColor = this._getStyleColor('accent');
+        const textColor = this._getStyleColor('text');
+        const textMutedColor = this._getStyleColor('textMuted');
+        const cardBgColor = this._getStyleColor('cardBg');
+
+        const centerX = this.doc.page.width / 2;
+        const startY = this.currentY + this.options.spacing.xxl;
+        const nodeWidth = 80;
+        const nodeHeight = 40;
+        const levelGap = 60;
+
+        // 绘制节点
+        const drawNode = (node, x, y, isRoot = false) => {
+            // 节点背景
+            this._drawRoundedRect(x - nodeWidth/2, y, nodeWidth, nodeHeight, 8,
+                isRoot ? primaryColor : cardBgColor, primaryColor, 1);
+
+            // 节点名称
+            this.doc.fontSize(this.options.typography.caption)
+                .fillColor(isRoot ? '#FFFFFF' : textColor)
+                .font(this.fonts.bold)
+                .text(node.name, x - nodeWidth/2 + 5, y + 8, {
+                    width: nodeWidth - 10,
+                    align: 'center'
+                });
+
+            // 节点职位
+            if (node.title) {
+                this.doc.fontSize(this.options.typography.small)
+                    .fillColor(isRoot ? '#CCCCCC' : textMutedColor)
+                    .font(this.fonts.regular)
+                    .text(node.title, x - nodeWidth/2 + 5, y + 22, {
+                        width: nodeWidth - 10,
+                        align: 'center'
+                    });
+            }
+        };
+
+        // 绘制连接线
+        const drawLine = (parentX, parentY, childX, childY) => {
+            this.doc.save();
+            this.doc.strokeColor(primaryColor)
+                .lineWidth(1.5)
+                .moveTo(parentX, parentY + nodeHeight)
+                .lineTo(parentX, parentY + nodeHeight + levelGap/2)
+                .lineTo(childX, parentY + nodeHeight + levelGap/2)
+                .lineTo(childX, childY)
+                .stroke();
+            this.doc.restore();
+        };
+
+        // 绘制根节点
+        drawNode(data.root, centerX, startY, true);
+
+        // 绘制子节点
+        if (data.children && data.children.length > 0) {
+            const childWidth = (this.doc.page.width - this.options.page.margin.left - this.options.page.margin.right) / data.children.length;
+            const childStartX = this.options.page.margin.left + childWidth / 2;
+
+            data.children.forEach((child, index) => {
+                const childX = childStartX + index * childWidth;
+                const childY = startY + levelGap;
+
+                drawLine(centerX, startY, childX, childY);
+                drawNode(child, childX, childY);
+
+                // 绘制孙节点
+                if (child.children && child.children.length > 0) {
+                    const grandWidth = childWidth / child.children.length;
+                    const grandStartX = childX - childWidth/2 + grandWidth/2;
+
+                    child.children.forEach((grand, gIndex) => {
+                        const grandX = grandStartX + gIndex * grandWidth;
+                        const grandY = childY + levelGap;
+
+                        drawLine(childX, childY, grandX, grandY);
+                        drawNode(grand, grandX, grandY);
+                    });
+                }
+            });
+        }
+
+        this.pageCount++;
+        return this;
+    }
+
+    
+    // ==========================================
+    // API 概览页
+    // ==========================================
+    apiOverview(title, endpoints) {
+        this.addPage();
+        this.heading(title, 1);
+
+        const primaryColor = this._getStyleColor('primary');
+        const accentColor = this._getStyleColor('accent');
+        const textColor = this._getStyleColor('text');
+        const textMutedColor = this._getStyleColor('textMuted');
+        const cardBgColor = this._getStyleColor('cardBg');
+        const cardBorderColor = this._getStyleColor('cardBorder');
+
+        const contentWidth = this.doc.page.width - this.options.page.margin.left - this.options.page.margin.right;
+        const startX = this.options.page.margin.left;
+        const startY = this.currentY + this.options.spacing.lg;
+        const rowHeight = 32;
+
+        endpoints.forEach((endpoint, index) => {
+            const y = startY + index * rowHeight;
+
+            // 行背景
+            const isEven = index % 2 === 0;
+            this.doc.save();
+            this.doc.rect(startX, y, contentWidth, rowHeight)
+                .fill(isEven ? cardBgColor : this._getStyleColor('content'));
+            this.doc.restore();
+
+            // 方法标签（GET/POST等）
+            const methodColor = endpoint.method === 'GET' ? '#22C55E' :
+                               endpoint.method === 'POST' ? '#3B82F6' :
+                               endpoint.method === 'PUT' ? '#F59E0B' :
+                               endpoint.method === 'DELETE' ? '#EF4444' : accentColor;
+
+            this.doc.save();
+            this.doc.fillColor(methodColor);
+            this.doc.roundedRect(startX + 10, y + 8, 45, 16, 4).fill();
+            this.doc.restore();
+
+            this.doc.fontSize(this.options.typography.small)
+                .fillColor('#FFFFFF')
+                .font(this.fonts.bold)
+                .text(endpoint.method, startX + 15, y + 11);
+
+            // 路径
+            this.doc.fontSize(this.options.typography.caption)
+                .fillColor(primaryColor)
+                .font(this.fonts.bold)
+                .text(endpoint.path, startX + 65, y + 10);
+
+            // 描述
+            this.doc.fontSize(this.options.typography.small)
+                .fillColor(textMutedColor)
+                .font(this.fonts.regular)
+                .text(endpoint.desc, startX + 250, y + 10, {
+                    width: contentWidth - 260
+                });
+        });
+
+        // 表格边框
+        this.doc.save();
+        this.doc.strokeColor(cardBorderColor)
+            .lineWidth(1)
+            .rect(startX, startY, contentWidth, endpoints.length * rowHeight)
+            .stroke();
+        this.doc.restore();
+
+        this.pageCount++;
+        return this;
+    }
+
+    // ==========================================
+    // 代码块展示页
+    // ==========================================
+    codeBlock(title, code, language = 'Python') {
+        this.addPage();
+        this.heading(title, 1);
+
+        const primaryColor = this._getStyleColor('primary');
+        const textColor = this._getStyleColor('text');
+        const textMutedColor = this._getStyleColor('textMuted');
+        const cardBgColor = this._getStyleColor('cardBg');
+        const cardBorderColor = this._getStyleColor('cardBorder');
+
+        const contentWidth = this.doc.page.width - this.options.page.margin.left - this.options.page.margin.right;
+        const startX = this.options.page.margin.left;
+        const startY = this.currentY + this.options.spacing.lg;
+        const lineHeight = 18;
+        const padding = 15;
+
+        // 计算代码行数
+        const lines = code.split('\n');
+        const blockHeight = Math.min(lines.length * lineHeight + 50, 200);
+
+        // 代码块背景
+        this.doc.save();
+        this.doc.rect(startX, startY, contentWidth, blockHeight)
+            .fill(cardBgColor);
+        this.doc.strokeColor(cardBorderColor)
+            .lineWidth(1)
+            .rect(startX, startY, contentWidth, blockHeight)
+            .stroke();
+        this.doc.restore();
+
+        // 语言标签
+        this.doc.save();
+        this.doc.fillColor(primaryColor);
+        this.doc.roundedRect(startX + 10, startY + 8, 60, 18, 4).fill();
+        this.doc.restore();
+
+        this.doc.fontSize(this.options.typography.small)
+            .fillColor('#FFFFFF')
+            .font(this.fonts.bold)
+            .text(language, startX + 20, startY + 11);
+
+        // 代码内容
+        let lineY = startY + 35;
+        lines.slice(0, 10).forEach((line, index) => {
+            // 行号
+            this.doc.fontSize(this.options.typography.small)
+                .fillColor(textMutedColor)
+                .font(this.fonts.regular)
+                .text(`${index + 1}`, startX + padding, lineY);
+
+            // 代码行（检查是否为注释）
+            const isComment = line.trim().startsWith('#') || line.trim().startsWith('//');
+            this.doc.fontSize(this.options.typography.small)
+                .fillColor(isComment ? textMutedColor : textColor)
+                .font(this.fonts.regular)
+                .text(line, startX + padding + 25, lineY, {
+                    width: contentWidth - padding * 2 - 25
+                });
+
+            lineY += lineHeight;
+        });
+
+        this.pageCount++;
+        return this;
+    }
+
+    // ==========================================
+    // 应用场景页
+    // ==========================================
+    useCases(title, cases) {
+        this.addPage();
+        this.heading(title, 1);
+
+        const primaryColor = this._getStyleColor('primary');
+        const accentColor = this._getStyleColor('accent');
+        const textColor = this._getStyleColor('text');
+        const textMutedColor = this._getStyleColor('textMuted');
+        const cardBgColor = this._getStyleColor('cardBg');
+        const cardBorderColor = this._getStyleColor('cardBorder');
+
+        const contentWidth = this.doc.page.width - this.options.page.margin.left - this.options.page.margin.right;
+        const cardWidth = contentWidth;
+        const startX = this.options.page.margin.left;
+        const startY = this.currentY + this.options.spacing.lg;
+        const cardHeight = 80;
+        const gap = 15;
+
+        cases.forEach((caseItem, index) => {
+            const y = startY + index * (cardHeight + gap);
+
+            // 场景卡片背景
+            this._drawRoundedRect(startX, y, cardWidth, cardHeight, 8, cardBgColor, cardBorderColor, 1);
+
+            // 行业标题（左侧彩色标签）
+            this.doc.save();
+            this.doc.fillColor(accentColor);
+            this.doc.roundedRect(startX + 10, y + 10, 80, 20, 4).fill();
+            this.doc.restore();
+
+            this.doc.fontSize(this.options.typography.caption)
+                .fillColor('#FFFFFF')
+                .font(this.fonts.bold)
+                .text(caseItem.industry, startX + 15, y + 13);
+
+            // 应用场景列表
+            if (caseItem.scenarios && caseItem.scenarios.length > 0) {
+                const scenariosText = caseItem.scenarios.map(s => `• ${s}`).join('   ');
+                this.doc.fontSize(this.options.typography.body)
+                    .fillColor(textColor)
+                    .font(this.fonts.regular)
+                    .text(scenariosText, startX + 100, y + 35, {
+                        width: cardWidth - 120,
+                        height: 40
+                    });
+            }
+        });
+
+        this.pageCount++;
+        return this;
+    }
+
+    // ==========================================
+    // 定价方案页
+    // ==========================================
+    pricing(title, plans) {
+        this.addPage();
+        this.heading(title, 1);
+
+        const primaryColor = this._getStyleColor('primary');
+        const accentColor = this._getStyleColor('accent');
+        const textColor = this._getStyleColor('text');
+        const textMutedColor = this._getStyleColor('textMuted');
+        const cardBgColor = this._getStyleColor('cardBg');
+        const cardBorderColor = this._getStyleColor('cardBorder');
+
+        const contentWidth = this.doc.page.width - this.options.page.margin.left - this.options.page.margin.right;
+        const planCount = plans.length || 3;
+        const cardWidth = (contentWidth - (planCount - 1) * 15) / planCount;
+        const startX = this.options.page.margin.left;
+        const startY = this.currentY + this.options.spacing.xl;
+        const cardHeight = 160;
+        const gap = 15;
+
+        plans.forEach((plan, index) => {
+            const x = startX + index * (cardWidth + gap);
+
+            // 定价卡片背景
+            const isRecommended = plan.recommend || index === 1;
+            const borderColor = isRecommended ? accentColor : cardBorderColor;
+            const borderWidth = isRecommended ? 2 : 1;
+
+            this._drawRoundedRect(x, startY, cardWidth, cardHeight, 10, cardBgColor, borderColor, borderWidth);
+
+            // 推荐标签
+            if (isRecommended) {
+                this.doc.save();
+                this.doc.fillColor(accentColor);
+                this.doc.roundedRect(x + cardWidth - 60, startY - 5, 50, 18, 4).fill();
+                this.doc.restore();
+
+                this.doc.fontSize(this.options.typography.small)
+                    .fillColor('#FFFFFF')
+                    .font(this.fonts.bold)
+                    .text('推荐', x + cardWidth - 50, startY - 2);
+            }
+
+            // 方案名称
+            this.doc.fontSize(this.options.typography.heading)
+                .fillColor(primaryColor)
+                .font(this.fonts.bold)
+                .text(plan.name, x + 15, startY + 15);
+
+            // 价格（突出显示）
+            this.doc.fontSize(28)
+                .fillColor(accentColor)
+                .font(this.fonts.bold)
+                .text(plan.price, x + 15, startY + 45);
+
+            // 功能列表
+            if (plan.features && plan.features.length > 0) {
+                let featureY = startY + 80;
+                plan.features.forEach(feature => {
+                    this.doc.fontSize(this.options.typography.caption)
+                        .fillColor(textColor)
+                        .font(this.fonts.regular)
+                        .text(`✓ ${feature}`, x + 15, featureY, {
+                            width: cardWidth - 30
+                        });
+                    featureY += 20;
+                });
+            }
+        });
+
+        this.pageCount++;
+        return this;
+    }
+
+    // ==========================================
+    // 流程图页
+    // ==========================================
+    flowChart(title, steps) {
+        this.addPage();
+        this.heading(title, 1);
+
+        const primaryColor = this._getStyleColor('primary');
+        const accentColor = this._getStyleColor('accent');
+        const textColor = this._getStyleColor('text');
+        const textMutedColor = this._getStyleColor('textMuted');
+        const cardBgColor = this._getStyleColor('cardBg');
+        const cardBorderColor = this._getStyleColor('cardBorder');
+
+        const contentWidth = this.doc.page.width - this.options.page.margin.left - this.options.page.margin.right;
+        const stepCount = steps.length;
+        const stepWidth = Math.min(100, contentWidth / stepCount);
+        const startX = this.options.page.margin.left + (contentWidth - stepCount * stepWidth - (stepCount - 1) * 30) / 2;
+        const startY = this.currentY + this.options.spacing.xxl;
+        const stepHeight = 60;
+        const gap = 30;
+
+        // 绘制连接线
+        this.doc.save();
+        this.doc.strokeColor(primaryColor)
+            .lineWidth(2);
+        for (let i = 0; i < stepCount - 1; i++) {
+            const x1 = startX + i * (stepWidth + gap) + stepWidth;
+            const x2 = startX + (i + 1) * (stepWidth + gap);
+            this.doc.moveTo(x1, startY + stepHeight / 2)
+                .lineTo(x2, startY + stepHeight / 2)
+                .stroke();
+            // 箭头
+            this._drawDecoTriangle(x2 - 5, startY + stepHeight / 2, 6, primaryColor, 'right');
+        }
+        this.doc.restore();
+
+        // 绘制步骤节点
+        steps.forEach((step, index) => {
+            const x = startX + index * (stepWidth + gap);
+
+            // 步骤圆圈
+            this.doc.save();
+            this.doc.fillColor(primaryColor);
+            this.doc.circle(x + stepWidth / 2, startY + 20, 22).fill();
+            this.doc.restore();
+
+            // 步骤编号
+            this.doc.fontSize(this.options.typography.body)
+                .fillColor('#FFFFFF')
+                .font(this.fonts.bold)
+                .text(step.id || index + 1, x + stepWidth / 2 - 8, startY + 15);
+
+            // 步骤标题
+            this.doc.fontSize(this.options.typography.caption)
+                .fillColor(textColor)
+                .font(this.fonts.bold)
+                .text(step.title, x, startY + 50, {
+                    width: stepWidth,
+                    align: 'center'
+                });
+
+            // 步骤描述
+            if (step.desc) {
+                this.doc.fontSize(this.options.typography.small)
+                    .fillColor(textMutedColor)
+                    .font(this.fonts.regular)
+                    .text(step.desc, x, startY + 65, {
+                        width: stepWidth,
+                        align: 'center'
+                    });
+            }
+        });
+
+        this.pageCount++;
+        return this;
+    }
+
+    // ==========================================
+    // 组织架构图页
+    // ==========================================
+    orgChart(title, config) {
+        this.addPage();
+        this.heading(title, 1);
+
+        const primaryColor = this._getStyleColor('primary');
+        const accentColor = this._getStyleColor('accent');
+        const textColor = this._getStyleColor('text');
+        const textMutedColor = this._getStyleColor('textMuted');
+        const cardBgColor = this._getStyleColor('cardBg');
+        const cardBorderColor = this._getStyleColor('cardBorder');
+
+        const centerX = this.doc.page.width / 2;
+        const startY = this.currentY + this.options.spacing.xxl;
+        const nodeWidth = 70;
+        const nodeHeight = 35;
+        const levelGap = 50;
+
+        // 绘制根节点
+        this._drawOrgNode(centerX - nodeWidth / 2, startY, nodeWidth, nodeHeight,
+            config.root.name, config.root.title, primaryColor, accentColor, textColor, cardBgColor);
+
+        // 绘制子节点
+        if (config.children && config.children.length > 0) {
+            const childCount = config.children.length;
+            const childWidth = contentWidth = this.doc.page.width - this.options.page.margin.left - this.options.page.margin.right;
+            const spacing = childWidth / (childCount + 1);
+
+            // 连接线
+            this.doc.save();
+            this.doc.strokeColor(primaryColor)
+                .lineWidth(2)
+                .moveTo(centerX, startY + nodeHeight)
+                .lineTo(centerX, startY + nodeHeight + levelGap / 2)
+                .stroke();
+            this.doc.restore();
+
+            config.children.forEach((child, index) => {
+                const childX = this.options.page.margin.left + spacing * (index + 1) - nodeWidth / 2;
+                const childY = startY + levelGap;
+
+                // 绘制连接线到子节点
+                this.doc.save();
+                this.doc.strokeColor(primaryColor)
+                    .lineWidth(1.5)
+                    .moveTo(centerX, startY + nodeHeight + levelGap / 2)
+                    .lineTo(childX + nodeWidth / 2, startY + nodeHeight + levelGap / 2)
+                    .lineTo(childX + nodeWidth / 2, childY)
+                    .stroke();
+                this.doc.restore();
+
+                // 绘制子节点
+                this._drawOrgNode(childX, childY, nodeWidth, nodeHeight,
+                    child.name, child.title, accentColor, primaryColor, textColor, cardBgColor);
+
+                // 绘制子节点的子节点
+                if (child.children && child.children.length > 0) {
+                    const grandChildY = childY + levelGap;
+                    const grandSpacing = 80;
+                    const startX = childX + nodeWidth / 2 - (child.children.length - 1) * grandSpacing / 2;
+
+                    child.children.forEach((grandChild, gcIndex) => {
+                        const gcX = startX + gcIndex * grandSpacing - nodeWidth / 2;
+
+                        // 连接线
+                        this.doc.save();
+                        this.doc.strokeColor(textMutedColor)
+                            .lineWidth(1)
+                            .moveTo(childX + nodeWidth / 2, childY + nodeHeight)
+                            .lineTo(gcX + nodeWidth / 2, grandChildY)
+                            .stroke();
+                        this.doc.restore();
+
+                        this._drawOrgNode(gcX, grandChildY, nodeWidth - 10, nodeHeight - 5,
+                            grandChild.name, grandChild.title, textMutedColor, primaryColor, textColor, cardBgColor);
+                    });
+                }
+            });
+        }
+
+        this.pageCount++;
+        return this;
+    }
+
+    // 组织架构节点绘制辅助方法
+    _drawOrgNode(x, y, width, height, name, title, borderColor, accentColor, textColor, bgColor) {
+        // 节点背景
+        this.doc.save();
+        this.doc.fillColor(bgColor);
+        this.doc.roundedRect(x, y, width, height, 6).fill();
+        this.doc.strokeColor(borderColor);
+        this.doc.lineWidth(1.5);
+        this.doc.roundedRect(x, y, width, height, 6).stroke();
+        this.doc.restore();
+
+        // 名称
+        this.doc.fontSize(this.options.typography.caption)
+            .fillColor(textColor)
+            .font(this.fonts.bold)
+            .text(name, x + 5, y + 8, {
+                width: width - 10,
+                align: 'center'
+            });
+
+        // 职位
+        if (title) {
+            this.doc.fontSize(this.options.typography.small)
+                .fillColor(accentColor)
+                .font(this.fonts.regular)
+                .text(title, x + 5, y + height - 12, {
+                    width: width - 10,
+                    align: 'center'
+                });
+        }
+    }
+
+    // ==========================================
+    // 对比卡片页（左右对比）
+    // ==========================================
+    comparison(title, config) {
+        // 如果是表格形式，使用已有的 table 方法
+        if (config.columns && config.rows) {
+            return this.table(title, config.rows, config.columns);
+        }
+
+        // 左右对比卡片形式
+        this.addPage();
+        this.heading(title, 1);
+
+        const primaryColor = this._getStyleColor('primary');
+        const accentColor = this._getStyleColor('accent');
+        const textColor = this._getStyleColor('text');
+        const textMutedColor = this._getStyleColor('textMuted');
+        const cardBgColor = this._getStyleColor('cardBg');
+        const cardBorderColor = this._getStyleColor('cardBorder');
+
+        const contentWidth = this.doc.page.width - this.options.page.margin.left - this.options.page.margin.right;
+        const cardWidth = (contentWidth - 20) / 2;
+        const startX = this.options.page.margin.left;
+        const startY = this.currentY + this.options.spacing.xl;
+        const cardHeight = 150;
+
+        // 左侧卡片
+        if (config.left) {
+            const leftX = startX;
+            const leftBorderColor = config.right && config.right.recommend ? cardBorderColor : accentColor;
+            this._drawRoundedRect(leftX, startY, cardWidth, cardHeight, 10, cardBgColor, leftBorderColor, 1);
+
+            // 标题
+            this.doc.fontSize(this.options.typography.heading)
+                .fillColor(primaryColor)
+                .font(this.fonts.bold)
+                .text(config.left.title, leftX + 15, startY + 15);
+
+            // 内容列表
+            if (config.left.items) {
+                let itemY = startY + 45;
+                config.left.items.forEach(item => {
+                    const isPositive = !item.includes('缺点') && !item.includes('问题');
+                    this.doc.fontSize(this.options.typography.body)
+                        .fillColor(isPositive ? '#22C55E' : '#EF4444')
+                        .font(this.fonts.bold)
+                        .text(isPositive ? '✓' : '✗', leftX + 15, itemY);
+                    this.doc.fontSize(this.options.typography.body)
+                        .fillColor(textColor)
+                        .font(this.fonts.regular)
+                        .text(item, leftX + 30, itemY);
+                    itemY += 22;
+                });
+            }
+        }
+
+        // 右侧卡片
+        if (config.right) {
+            const rightX = startX + cardWidth + 20;
+            const rightBorderColor = config.right.recommend ? accentColor : cardBorderColor;
+            const rightBorderWidth = config.right.recommend ? 2 : 1;
+            this._drawRoundedRect(rightX, startY, cardWidth, cardHeight, 10, cardBgColor, rightBorderColor, rightBorderWidth);
+
+            // 推荐标签
+            if (config.right.recommend) {
+                this.doc.save();
+                this.doc.fillColor(accentColor);
+                this.doc.roundedRect(rightX + cardWidth - 50, startY - 5, 40, 16, 4).fill();
+                this.doc.restore();
+                this.doc.fontSize(this.options.typography.small)
+                    .fillColor('#FFFFFF')
+                    .font(this.fonts.bold)
+                    .text('推荐', rightX + cardWidth - 45, startY - 2);
+            }
+
+            // 标题
+            this.doc.fontSize(this.options.typography.heading)
+                .fillColor(primaryColor)
+                .font(this.fonts.bold)
+                .text(config.right.title, rightX + 15, startY + 15);
+
+            // 内容列表
+            if (config.right.items) {
+                let itemY = startY + 45;
+                config.right.items.forEach(item => {
+                    const isPositive = !item.includes('缺点') && !item.includes('问题');
+                    this.doc.fontSize(this.options.typography.body)
+                        .fillColor(isPositive ? '#22C55E' : '#EF4444')
+                        .font(this.fonts.bold)
+                        .text(isPositive ? '✓' : '✗', rightX + 15, itemY);
+                    this.doc.fontSize(this.options.typography.body)
+                        .fillColor(textColor)
+                        .font(this.fonts.regular)
+                        .text(item, rightX + 30, itemY);
+                    itemY += 22;
+                });
+            }
+        }
+
+        this.pageCount++;
+        return this;
+    }
+
+    // ==========================================
+    // API 概览页
+    // ==========================================
+    apiOverview(title, endpoints) {
+        this.addPage();
+        this.heading(title, 1);
+
+        const primaryColor = this._getStyleColor('primary');
+        const accentColor = this._getStyleColor('accent');
+        const textColor = this._getStyleColor('text');
+        const textMutedColor = this._getStyleColor('textMuted');
+        const cardBgColor = this._getStyleColor('cardBg');
+        const cardBorderColor = this._getStyleColor('cardBorder');
+
+        const contentWidth = this.doc.page.width - this.options.page.margin.left - this.options.page.margin.right;
+        const startX = this.options.page.margin.left;
+        const startY = this.currentY + this.options.spacing.lg;
+        const rowHeight = 35;
+
+        // 表头
+        this.doc.save();
+        this.doc.fillColor(primaryColor);
+        this.doc.rect(startX, startY, contentWidth, rowHeight).fill();
+        this.doc.restore();
+
+        // 表头文字
+        this.doc.fontSize(this.options.typography.caption)
+            .fillColor('#FFFFFF')
+            .font(this.fonts.bold)
+            .text('Method', startX + 12, startY + 12)
+            .text('Endpoint', startX + 100, startY + 12)
+            .text('Description', startX + 250, startY + 12);
+
+        // 数据行
+        endpoints.forEach((endpoint, index) => {
+            const rowY = startY + rowHeight + index * rowHeight;
+            const isEven = index % 2 === 0;
+
+            // 行背景
+            this.doc.save();
+            this.doc.rect(startX, rowY, contentWidth, rowHeight)
+                .fill(isEven ? cardBgColor : '#FFFFFF');
+            this.doc.restore();
+
+            // Method 标签
+            const methodColor = endpoint.method === 'GET' ? '#22C55E' :
+                           endpoint.method === 'POST' ? '#F59E0B' :
+                           endpoint.method === 'PUT' ? '#3B82F6' :
+                           endpoint.method === 'DELETE' ? '#EF4444' : primaryColor;
+
+            this.doc.save();
+            this.doc.fillColor(methodColor);
+            this.doc.rect(startX + 8, rowY + 8, 60, rowHeight - 16, 4).fill();
+            this.doc.restore();
+
+            this.doc.fontSize(this.options.typography.small)
+                .fillColor('#FFFFFF')
+                .font(this.fonts.bold)
+                .text(endpoint.method, startX + 18, rowY + 12);
+
+            // Endpoint
+            this.doc.fontSize(this.options.typography.caption)
+                .fillColor(textColor)
+                .font(this.fonts.regular)
+                .text(endpoint.path, startX + 100, rowY + 12);
+
+            // Description
+            this.doc.fontSize(this.options.typography.small)
+                .fillColor(textMutedColor)
+                .font(this.fonts.regular)
+                .text(endpoint.desc || '', startX + 250, rowY + 12, {
+                    width: contentWidth - 270
+                });
+
+            // 行边框
+            this.doc.save();
+            this.doc.strokeColor(cardBorderColor);
+            this.doc.lineWidth(0.5);
+            this.doc.rect(startX, rowY, contentWidth, rowHeight).stroke();
+            this.doc.restore();
+        });
+
+        this.pageCount++;
+        return this;
+    }
+
+    // ==========================================
+    // 代码块展示页
+    // ==========================================
+    codeBlock(title, config) {
+        this.addPage();
+        this.heading(title, 1);
+
+        const primaryColor = this._getStyleColor('primary');
+        const textColor = this._getStyleColor('text');
+        const textMutedColor = this._getStyleColor('textMuted');
+        const cardBgColor = this._getStyleColor('cardBg');
+        const cardBorderColor = this._getStyleColor('cardBorder');
+
+        const language = config.language || 'Python';
+        const code = config.code || '';
+        const lines = code.split('\n');
+
+        const contentWidth = this.doc.page.width - this.options.page.margin.left - this.options.page.margin.right;
+        const startX = this.options.page.margin.left;
+        const startY = this.currentY + this.options.spacing.lg;
+        const lineHeight = 18;
+        const headerHeight = 30;
+        const codeBlockHeight = Math.min(lines.length * lineHeight + 20, 400);
+
+        const totalHeight = headerHeight + codeBlockHeight;
+
+        // 代码块容器背景
+        this._drawRoundedRect(startX, startY, contentWidth, totalHeight, 8, cardBgColor, cardBorderColor, 1);
+
+        // 语言标签背景
+        this.doc.save();
+        this.doc.fillColor(primaryColor);
+        this.doc.rect(startX, startY, 80, headerHeight - 5, 4).fill();
+        this.doc.restore();
+
+        // 语言标签文字
+        this.doc.fontSize(this.options.typography.small)
+            .fillColor('#FFFFFF')
+            .font(this.fonts.bold)
+            .text(language, startX + 15, startY + 8);
+
+        // 行号背景
+        this.doc.save();
+        this.doc.fillColor(textMutedColor);
+        this.doc.rect(startX, startY + headerHeight - 5, 40, codeBlockHeight + 5, 4).fill();
+        this.doc.restore();
+
+        // 代码内容
+        let codeY = startY + headerHeight;
+        lines.forEach((line, index) => {
+            // 行号
+            this.doc.fontSize(this.options.typography.small)
+                .fillColor(textMutedColor)
+                .font(this.fonts.regular)
+                .text(`${index + 1}`, startX + 8, codeY + 5);
+
+            // 代码行
+            const isComment = line.trim().startsWith('#') || line.trim().startsWith('//');
+            this.doc.fontSize(this.options.typography.caption)
+                .fillColor(isComment ? textMutedColor : textColor)
+                .font(this.fonts.regular)
+                .text(line, startX + 50, codeY + 5, {
+                    width: contentWidth - 60
+                });
+
+            codeY += lineHeight;
+        });
+
+        this.pageCount++;
+        return this;
+    }
+
+    // ==========================================
+    // 应用场景页
+    // ==========================================
+    useCases(title, cases) {
+        this.addPage();
+        this.heading(title, 1);
+
+        const primaryColor = this._getStyleColor('primary');
+        const accentColor = this._getStyleColor('accent');
+        const textColor = this._getStyleColor('text');
+        const textMutedColor = this._getStyleColor('textMuted');
+        const cardBgColor = this._getStyleColor('cardBg');
+        const cardBorderColor = this._getStyleColor('cardBorder');
+
+        const contentWidth = this.doc.page.width - this.options.page.margin.left - this.options.page.margin.right;
+        const startX = this.options.page.margin.left;
+        const startY = this.currentY + this.options.spacing.lg;
+        const caseWidth = contentWidth / cases.length;
+        const caseHeight = 120;
+
+        cases.forEach((caseItem, index) => {
+            const x = startX + index * caseWidth;
+            const caseX = x + 10;
+            const caseW = caseWidth - 20;
+
+            // 场景卡片背景
+            this._drawRoundedRect(caseX, startY, caseW, caseHeight, 8, cardBgColor, cardBorderColor, 1);
+
+            // 行业标签背景
+            this.doc.save();
+            this.doc.fillColor(accentColor);
+            this.doc.roundedRect(caseX, startY, caseW, 25, 4).fill();
+            this.doc.restore();
+
+            // 行业名称
+            this.doc.fontSize(this.options.typography.caption)
+                .fillColor('#FFFFFF')
+                .font(this.fonts.bold)
+                .text(caseItem.industry, caseX + 12, startY + 8);
+
+            // 场景列表
+            let scenarioY = startY + 35;
+            if (caseItem.scenarios) {
+                caseItem.scenarios.forEach((scenario, sIndex) => {
+                    // 场景圆点
+                    this._drawDecoDot(caseX + 15, scenarioY + 5, 3, primaryColor);
+
+                    // 场景文字
+                    this.doc.fontSize(this.options.typography.small)
+                        .fillColor(textColor)
+                        .font(this.fonts.regular)
+                        .text(scenario, caseX + 25, scenarioY + 3, {
+                            width: caseW - 35
+                        });
+
+                    scenarioY += 20;
+                });
+            }
+        });
+
+        this.pageCount++;
+        return this;
+    }
+
+    // ==========================================
+    // 定价方案页
+    // ==========================================
+    pricing(title, plans) {
+        this.addPage();
+        this.heading(title, 1);
+
+        const primaryColor = this._getStyleColor('primary');
+        const accentColor = this._getStyleColor('accent');
+        const textColor = this._getStyleColor('text');
+        const textMutedColor = this._getStyleColor('textMuted');
+        const cardBgColor = this._getStyleColor('cardBg');
+        const cardBorderColor = this._getStyleColor('cardBorder');
+
+        const contentWidth = this.doc.page.width - this.options.page.margin.left - this.options.page.margin.right;
+        const planWidth = (contentWidth - 30) / plans.length;
+        const startX = this.options.page.margin.left;
+        const startY = this.currentY + this.options.spacing.lg;
+        const planHeight = 200;
+
+        plans.forEach((plan, index) => {
+            const x = startX + index * (planWidth + 10);
+            const planX = x + 5;
+            const planW = planWidth - 10;
+            const isRecommended = index === 1 || plan.recommended;
+
+            // 方案卡片背景
+            if (isRecommended) {
+                // 推荐方案有特殊边框
+                this.doc.save();
+                this.doc.fillColor(accentColor);
+                this.doc.roundedRect(planX - 3, startY - 3, planW + 6, planHeight + 6, 10).fill();
+                this.doc.restore();
+            }
+            this._drawRoundedRect(planX, startY, planW, planHeight, 8, cardBgColor, isRecommended ? accentColor : cardBorderColor, isRecommended ? 2 : 1);
+
+            // 方案名称
+            this.doc.fontSize(this.options.typography.heading)
+                .fillColor(primaryColor)
+                .font(this.fonts.bold)
+                .text(plan.name, planX + 12, startY + 12);
+
+            // 推荐标签
+            if (isRecommended) {
+                this.doc.fontSize(this.options.typography.small)
+                    .fillColor(accentColor)
+                    .font(this.fonts.bold)
+                    .text('推荐', planX + planW - 40, startY + 12);
+            }
+
+            // 价格
+            this.doc.fontSize(this.options.typography.sectionTitle)
+                .fillColor(accentColor)
+                .font(this.fonts.bold)
+                .text(plan.price, planX + 12, startY + 50, {
+                    width: planW - 24,
+                    align: 'center'
+                });
+
+            // 功能列表
+            let featureY = startY + 85;
+            if (plan.features) {
+                plan.features.forEach((feature, fIndex) => {
+                    // 功能圆点
+                    this._drawDecoDot(planX + 15, featureY + 5, 3, primaryColor);
+
+                    // 功能文字
+                    this.doc.fontSize(this.options.typography.small)
+                        .fillColor(textColor)
+                        .font(this.fonts.regular)
+                        .text(feature, planX + 25, featureY + 3, {
+                            width: planW - 35
+                        });
+
+                    featureY += 18;
+                });
+            }
+        });
+
+        this.pageCount++;
+        return this;
+    }
+
+    // ==========================================
+    // 流程图页
+    // ==========================================
+    flowChart(title, steps) {
+        this.addPage();
+        this.heading(title, 1);
+
+        const primaryColor = this._getStyleColor('primary');
+        const accentColor = this._getStyleColor('accent');
+        const textColor = this._getStyleColor('text');
+        const textMutedColor = this._getStyleColor('textMuted');
+        const cardBgColor = this._getStyleColor('cardBg');
+        const cardBorderColor = this._getStyleColor('cardBorder');
+
+        const contentWidth = this.doc.page.width - this.options.page.margin.left - this.options.page.margin.right;
+        const stepWidth = contentWidth / steps.length;
+        const startX = this.options.page.margin.left;
+        const startY = this.currentY + this.options.spacing.xl;
+        const stepHeight = 80;
+
+        steps.forEach((step, index) => {
+            const x = startX + index * stepWidth;
+            const centerX = x + stepWidth / 2;
+
+            // 步骤圆圈
+            this.doc.save();
+            this.doc.fillColor(primaryColor);
+            this.doc.circle(centerX, startY + 25, 25).fill();
+            this.doc.restore();
+
+            // 步骤编号
+            this.doc.fontSize(this.options.typography.body)
+                .fillColor('#FFFFFF')
+                .font(this.fonts.bold)
+                .text(`${index + 1}`, centerX - 8, startY + 20);
+
+            // 步骤标题
+            this.doc.fontSize(this.options.typography.caption)
+                .fillColor(textColor)
+                .font(this.fonts.bold)
+                .text(step.title, centerX - stepWidth / 2 + 15, startY + 60, {
+                    width: stepWidth - 20,
+                    align: 'center'
+                });
+
+            // 步骤描述
+            if (step.desc) {
+                this.doc.fontSize(this.options.typography.small)
+                    .fillColor(textMutedColor)
+                    .font(this.fonts.regular)
+                    .text(step.desc, centerX - stepWidth / 2 + 15, startY + 80, {
+                        width: stepWidth - 20,
+                        align: 'center'
+                    });
+            }
+
+            // 连接箭头（除了最后一个）
+            if (index < steps.length - 1) {
+                this.doc.save();
+                this.doc.strokeColor(primaryColor);
+                this.doc.lineWidth(2);
+                this.doc.moveTo(centerX + 25, startY + 25);
+                this.doc.lineTo(centerX + stepWidth - 25, startY + 25);
+                this.doc.stroke();
+                this.doc.restore();
+            }
+        });
+
+        this.pageCount++;
+        return this;
+    }
+
+    // ==========================================
+    // 组织架构图页
+    // ==========================================
+    orgChart(title, config) {
+        this.addPage();
+        this.heading(title, 1);
+
+        const primaryColor = this._getStyleColor('primary');
+        const accentColor = this._getStyleColor('accent');
+        const textColor = this._getStyleColor('text');
+        const textMutedColor = this._getStyleColor('textMuted');
+        const cardBgColor = this._getStyleColor('cardBg');
+
+        const root = config.root;
+        const children = config.children || [];
+
+        const centerX = this.doc.page.width / 2;
+        const startY = this.currentY + this.options.spacing.xl;
+        const nodeWidth = 100;
+        const nodeHeight = 40;
+        const levelGap = 60;
+
+        // 绘制根节点
+        this._drawOrgNode(centerX, startY, nodeWidth, nodeHeight, root, primaryColor, cardBgColor, textColor);
+
+        // 绘制子节点
+        const childCount = children.length;
+        const childSpacing = (this.doc.page.width - 100) / (childCount + 1);
+
+        children.forEach((child, index) => {
+            const childX = childSpacing * (index + 1);
+            const childY = startY + levelGap;
+
+            // 连接线
+            this.doc.save();
+            this.doc.strokeColor(primaryColor);
+            this.doc.lineWidth(2);
+            this.doc.moveTo(centerX, startY + nodeHeight);
+            this.doc.lineTo(childX, childY);
+            this.doc.stroke();
+            this.doc.restore();
+
+            // 子节点
+            this._drawOrgNode(childX, childY, nodeWidth, nodeHeight, child, accentColor, cardBgColor, textColor);
+
+            // 孙节点
+            if (child.children && child.children.length > 0) {
+                const grandCount = child.children.length;
+                const grandSpacing = nodeWidth * 1.5;
+                child.children.forEach((grand, gIndex) => {
+                    const grandX = childX - nodeWidth / 2 + grandSpacing * (gIndex + 0.5);
+                    const grandY = childY + levelGap;
+
+                    // 连接线
+                    this.doc.save();
+                    this.doc.strokeColor(accentColor);
+                    this.doc.lineWidth(1);
+                    this.doc.moveTo(childX, childY + nodeHeight);
+                    this.doc.lineTo(grandX, grandY);
+                    this.doc.stroke();
+                    this.doc.restore();
+
+                    // 孙节点
+                    this._drawOrgNode(grandX, grandY, nodeWidth - 20, nodeHeight - 10, grand, primaryColor, cardBgColor, textColor);
+                });
+            }
+        });
+
+        this.pageCount++;
+        return this;
+    }
+
+    // 组织架构节点绘制辅助方法
+    _drawOrgNode(x, y, width, height, node, bgColor, cardBgColor, textColor) {
+        // 节点背景
+        this._drawRoundedRect(x - width / 2, y, width, height, 6, cardBgColor, bgColor, 1);
+
+        // 节点名称
+        this.doc.fontSize(this.options.typography.caption)
+            .fillColor(textColor)
+            .font(this.fonts.bold)
+            .text(node.name, x - width / 2 + 8, y + 8);
+
+        // 节点职位
+        if (node.title) {
+            this.doc.fontSize(this.options.typography.small)
+                .fillColor(bgColor)
+                .font(this.fonts.regular)
+                .text(node.title, x - width / 2 + 8, y + 25);
+        }
+    }
+
+    // ==========================================
     // 保存方法
     // ==========================================
     save(outputPath) {
